@@ -9,6 +9,7 @@ import pygeoip
 import demjson
 from collections import deque, Counter
 
+import config
 
 class MultiIntervalCounter(object):
 
@@ -179,8 +180,10 @@ def main():
     root_site.putChild("top_ips.json", TopIps(loc_stats.ip_stats))
     root_site.putChild("top_rdns.json", TopRdns(loc_stats.ip_stats))
 
-    reactor.listenTCP(8880, server.Site(root_site))
-    reactor.listenUDP(8999, IpReceiver(loc_stats))
+    reactor.listenTCP(config.webserver_port, server.Site(root_site))
+    print "Started webserver on http://localhost:%s" % config.webserver_port
+    reactor.listenUDP(config.udp_recv_port, IpReceiver(loc_stats))
+    print "Started lisenting for ubp packets on port %s" % config.webserver_port
     reactor.run()
 
 
