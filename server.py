@@ -195,7 +195,7 @@ def main():
     reactor.listenTCP(config.webserver_port, server.Site(root_site))
     print "Started webserver on http://localhost:%s" % config.webserver_port
     reactor.listenUDP(config.udp_recv_port, IpReceiver(loc_stats))
-    print "Started lisenting for ubp packets on port %s" % config.udp_recv_port
+    print "Started lisenting for udp packets on port %s" % config.udp_recv_port
     reactor.run()
 
 
