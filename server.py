@@ -88,9 +88,15 @@ class LocationStats(object):
         self.ip_stats = IPStats(self)
         self.stats = MultiIntervalCounter(multiples=minute_breakdowns)
 
+        # Load up our blacklist dict
+        self.blacklist_dict = {}
+        for item in config.blacklist:
+            blacklist[item] = True
+
+
     def saw_addr(self, addr):
         try:
-            config.blacklist[addr]
+            self.blacklist_dict[addr]
             return
         except KeyError:
             pass
