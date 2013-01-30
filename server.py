@@ -91,7 +91,7 @@ class LocationStats(object):
         # Load up our blacklist dict
         self.blacklist_dict = {}
         for item in config.blacklist:
-            blacklist[item] = True
+            self.blacklist_dict[item] = True
 
 
     def saw_addr(self, addr):
