@@ -47,7 +47,7 @@ DAT.Globe = function(container, colorFn) {
         'void main() {',
           'vec3 diffuse = texture2D( texture, vUv ).xyz;',
           'float intensity = 1.05 - dot( vNormal, vec3( 0.0, 0.0, 1.0 ) );',
-          'vec3 atmosphere = vec3( 1.0, 1.0, 1.0 ) * pow( intensity, 8.0 );',
+          'vec3 atmosphere = vec3( 1.0, 1.0, 1.0 ) * pow( intensity, 3.0 );',
           'gl_FragColor = vec4( diffuse + atmosphere, 1.0 );',
         '}'
       ].join('\n')
@@ -64,7 +64,7 @@ DAT.Globe = function(container, colorFn) {
       fragmentShader: [
         'varying vec3 vNormal;',
         'void main() {',
-          'float intensity = pow( 0.8 - dot( vNormal, vec3( 0, 0, 1.0 ) ), 16.0 );',
+          'float intensity = pow( 0.8 - dot( vNormal, vec3( 0, 0, 1.0 ) ), 38.0 );',
           'gl_FragColor = vec4( 0.4, 0.4, 0.9, 1.0 ) * intensity;',
         '}'
       ].join('\n')
@@ -376,7 +376,7 @@ DAT.Globe = function(container, colorFn) {
 
     var cur_time = new Date().getTime()
     var time_delta = cur_time - this.last_render;
-    target.x -= 0.0001 * time_delta;
+    target.x -= 0.00004 * time_delta;
     this.last_render = cur_time;
 
     rotation.x += (target.x - rotation.x) * 0.1;
