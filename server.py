@@ -23,6 +23,7 @@ class MultiIntervalCounter(object):
             self.multi_counters[i] = Counter()
             self.counter_backlogs[i] = deque()
         reactor.callLater(interval, self.next_interval)
+        self.cache_broke = True
 
     def next_interval(self):
         for i, c in self.counter_backlogs.items():
@@ -32,6 +33,7 @@ class MultiIntervalCounter(object):
             c.appendleft(self.counter)
         self.counter = Counter()
         reactor.callLater(self.interval, self.next_interval)
+        self.cache_broke = True
 
     def most_common(self, count):
         return [(i, self.multi_counters[i].most_common(count)) for i in self.multiples]
@@ -129,6 +131,10 @@ class GlobeStats(resource.Resource):
 
     def render_GET(self, request):
         request.setHeader("content-type", "application/json")
+
+        if not self.loc_stats.stats.cache_broke:
+            return self.resp
+
         data = []
         for i in self.loc_stats.stats.multiples:
             c = self.loc_stats.stats.multi_counters[i]
@@ -141,7 +147,10 @@ class GlobeStats(resource.Resource):
             for loc, val in c.items():
                 vals.extend((loc[0], loc[1], val / maxval))
             data.append((str(i), vals))
-        return str(demjson.encode(data))
+
+        self.loc_stats.stats.cache_broke = False
+        self.resp = str(demjson.encode(data))
+        return self.resp
 
 
 class TopRdns(resource.Resource):
