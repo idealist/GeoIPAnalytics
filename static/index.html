@@ -11,7 +11,7 @@
       body {
         margin: 0;
         padding: 0;
-        background: #777 url(/loading.gif) center center no-repeat;
+        background: #BBB url(/loading.gif) center center no-repeat;
         color: #000;
         font-family: sans-serif;
         font-size: 13px;
@@ -25,10 +25,8 @@
         position: absolute;
         bottom: 5px;
         background-color: rgba(0,0,0,0.2);
-        border-radius: 3px;
         right: 10px;
         padding: 10px;
-
       }
 
       #currentInfo {
@@ -36,10 +34,8 @@
         position: absolute;
         left: 20px;
         top: 63px;
-
-        background-color: rgba(0,0,0,0.2);
-
-        border-top: 1px solid rgba(255,255,255,0.4);
+        background-color: rgba(255,255,255,0.2);
+        border-top: 1px solid rgba(0,0,0,0.2);
         padding: 10px;
       }
 
@@ -61,28 +57,30 @@
         top: 20px;
         width: 270px;
         left: 20px;
-        background-color: rgba(0,0,0,0.2);
-        border-radius: 3px;
+        background-color: rgba(255,255,255,0.4);
         font: 20px Georgia;
         padding: 10px;
       }
 
-      .year {
-        font: 16px Georgia;
+      .timeper {
+        font: 14px Georgia;
         line-height: 26px;
-        height: 30px;
         text-align: center;
-        float: left;
-        width: 90px;
-        color: rgba(255, 255, 255, 0.4);
-
+        margin-right: 10px;
+        padding: 5px;
+        color: 0;
+        /*background-color: rgba(255,255,255,0.4);*/
         cursor: pointer;
-        -webkit-transition: all 0.1s ease-out;
       }
 
-      .year:hover, .year.active {
-        font-size: 23px;
-        color: #fff;
+      .timeper:hover, .year.timeper {
+        color: #000;
+      }
+
+      #timelist {
+          padding: 0;
+          margin: 0;
+          list-style-type: none;
       }
 
       #ce span {
@@ -107,10 +105,13 @@
   <div id="container"></div>
 
   <div id="currentInfo">
-    <span id="min1">1 minute</span>
-    <span id="min5">5 minutes</span>
-    <span id="min15">15 minutes</span>
-    <span id="min60">60 minutes</span>
+    Show data from the last:
+    <ul id="timelist">
+    <li><span id="min1"><a href="#" class="timeper">1 minute</a></span></li>
+    <li><span id="min5"><a href="#" class="timeper">5 minutes</a></span></li>
+    <li><span id="min15"><a href="#" class="timeper">15 minutes</a></span></li>
+    <li><span id="min60"><a href="#" class="timeper">60 minutes</a></span></li>
+    </ul>
   </div>
 
   <div id="title">
